@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.0.css">
+        <link rel="stylesheet"  href="css/style.css">
+        <!-- 
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        -->
+
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        
+        <script src="js/library/jquery.js"></script>
+        <script src="js/library/jquery.mobile-1.4.0.min.js"></script>
+
+        <title>MADApp</title>
+    </head>
+    <body>
+    <div id="loading">loading...</div>
+        <div class="app container">
+
+
+<h1 class="title">MADApp Login</h1>
+
+<form class="form-signin form-control" role="form" method="post" action="" id="login-form">
+    <input type="text" name="email" value="" id="email" class="form-control" placeholder="Email" autofocus />
+    <input type="password" name="password" value="" id="password" class="form-control" placeholder="Password"  />    
+
+    <label class="checkbox"><input type="checkbox" name='remember' id='remember' checked='true' value="remember-me"> Remember me</label>
+
+    <a class="small" href="forgot_password.html">Forgot Password?</a>
+    <br><br>
+    <input type="submit" name="action" value="Login" class="btn btn-lg btn-primary btn-block" id="action" />
+
+    <div id="messages-area">
+        <div id="success-message" class="success with-icon"></div>
+        <div id="error-message" class="error with-icon"></div>
+    </div>
+</form>
+
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/application.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
