@@ -1,0 +1,9 @@
+.row {
+	text-align: left !important;
+	padding: 5px 0 5px 40px;
+	font-weight: normal;
+}
+.data {
+	text-transform: none;
+	font-weight: bold;
+}

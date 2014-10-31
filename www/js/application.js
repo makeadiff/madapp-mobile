@@ -1,7 +1,7 @@
 var base_url = "http://localhost/Projects/Madapp/index.php/api/";
+
 (function($) {
     "use strict";
-
 
     $( document ).on( "ready", function(){
         if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load 

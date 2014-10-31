@@ -6,7 +6,7 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.0.css">
+        <link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.4.4.css">
         <link rel="stylesheet"  href="css/style.css">
         <!-- 
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,10 +15,10 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         -->
 
-        <link rel="stylesheet" type="text/css" href="css/report_page.css" />
+        <link rel="stylesheet" type="text/css" href="css/report.css" />
         
         <script src="js/library/jquery.js"></script>
-        <script src="js/library/jquery.mobile-1.4.0.min.js"></script>
+        <script src="js/library/jquery.mobile-1.4.4.min.js"></script>
 
         <title>Credit Leaderboard</title>
     </head>
@@ -29,9 +29,11 @@
 
 <h1 class="title">Credit Leaderboard</h1>
 
-<div class="leaderboard">
-<span class="name">Volunteer Name</span>
-<span class="credit">5</span>
+<div class="leaderboard" id="content">
+<div class="history row ui-btn ui-icon-info ui-btn-icon-left">
+<span class="name data"></span>
+<span class="credit data">5</span>
+</div>
 </div>
 
 
@@ -39,6 +41,11 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/application.js"></script>
-        <script type="text/javascript" src="js/credit_leaderboard.js"></script>
+        <script type="text/javascript" src="js/report.js"></script>
+        <script type="text/javascript">
+        function init () {
+            updateWithData(base_url + "report_credit_leaderboard/", {"city_id": 1});
+        }
+        </script>
     </body>
 </html>
