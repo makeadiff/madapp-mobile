@@ -15,42 +15,39 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         -->
 
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/attendance.css" />
         
         <script src="js/library/jquery.js"></script>
         <script src="js/library/jquery.mobile-1.4.0.min.js"></script>
 
-        <title>MADApp</title>
+        <title>Attendance</title>
     </head>
     <body>
     <div id="loading">loading...</div>
-        <div class="app container">
-
-
-<h1 class="title">MADApp Login</h1>
-
-<form class="form-signin form-control" role="form" method="post" action="" id="login-form">
-    <input type="text" name="email" value="" id="email" class="form-control" placeholder="Email" autofocus />
-    <input type="password" name="password" value="" id="password" class="form-control" placeholder="Password"  />    
-
-    <!-- <label class="checkbox"> -->
-    <input type="hidden" name='remember' id='remember' checked='true' value="1">
-    <!-- Remember me</label>
-
-    <a class="small" href="forgot_password.html">Forgot Password?</a><br /> -->
-    <br />
-    <input type="submit" name="action" value="Login" class="btn btn-lg btn-primary btn-block" id="action" />
-
-    <div id="messages-area">
-        <div id="success-message" class="success with-icon"></div>
-        <div id="error-message" class="error with-icon"></div>
+    <div class="app container type-interior" data-role="page">
+    <div data-role="header">
+        <h1>MADApp</h1>
     </div>
-</form>
 
+
+    <div data-role="content">
+
+<h1 class="title">Attendance</h1>
+
+        <div id="levels">
+        </div>
+
+        <div id="level_info">
+        </div>
+
+        <div id="student_attendance">
+        </div>
+
+        </div>
         </div>
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/application.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/attendance.js"></script>
     </body>
 </html>
