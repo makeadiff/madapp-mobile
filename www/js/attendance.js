@@ -33,7 +33,7 @@ function updatePage(data, id) {
 	html += "<ul data-role='listview'>";
 	for(var index in data.classes) {
 		var level_data = data.classes[index];
-		html += "<li><a href='#' class='level btn' data-level-id='"+level_data.level_id+"' data-index='"+index+"'>" +level_data.level_name+ "</a></li>";
+		html += "<li><a href='#level_info' class='level btn' data-level-id='"+level_data.level_id+"' data-index='"+index+"'>" +level_data.level_name+ "</a></li>";
 	}
 	html += "</ul>";
 
@@ -45,15 +45,18 @@ function showLevel(e) {
 	var index = $(this).attr("data-index");
 	var level_data = class_data.classes[index];
 
+	var disabled = '';
+	if(level_data.class_status == '0') disabled = " disabled='disabled'";
+
 	var html = "";
 	html += "<h3>" + level_data.level_name + "</h3>";
 
-	html += "<form action='' method='post'>";
+	html += "<form action='' method='post' id='level_form'>";
 
-	html += "<div data-role='fieldcontain'><label for='unit_id'>Unit Taught</label><select id='unit_id' name='unit_id'>";
+	html += "<div data-role='fieldcontain'><label for='lesson_id'>Unit Taught</label><select id='lesson_id' name='lesson_id' "+disabled+">";
 	for(var i in level_data['all_lessons']) {
 		var lesson = level_data['all_lessons'][i];
-		html += "<option value='"+lesson.unit_id+"'>"+lesson.unit_name+"</option>";
+		html += "<option value='"+lesson.lesson_id+"'>"+lesson.lesson_name+"</option>";
 	}
 	html += "</select></div>";
 
@@ -61,8 +64,9 @@ function showLevel(e) {
 		var teacher = level_data['teachers'][teacher_index];
 		html += "<h4>Teacher: " + teacher.name + "</h4>";
 
+		html += "<input type='hidden' name='user_id["+teacher_index+"]' value='"+teacher.id+"' />";
 
-		html += "<div data-role='fieldcontain'><label for='substitued_user_id_"+teacher_index+"'>Substitute</label><select id='substitued_user_id_"+teacher_index+"' name='substitued_user_id_"+teacher_index+"'>";
+		html += "<div data-role='fieldcontain'><label for='substitued_user_id_"+teacher_index+"'>Substitute</label><select id='substitued_user_id_"+teacher_index+"' name='substitute_id["+teacher_index+"]' "+disabled+">";
 		for(var i in all_teachers) {
 			var teacher = all_teachers[i];
 			html += "<option value='"+teacher.id+"'>"+teacher.name+"</option>";
@@ -70,21 +74,60 @@ function showLevel(e) {
 		html += "</select></div>";
 
 		html += "<div data-role='fieldcontain'><label for='status_"+teacher_index+"'>Status</label>";
-		html += "<select name='status_"+teacher_index+"'><option value='attended'>Attended</option><option value='absent'>Absent</option></select></div>";
+		html += "<select id='status_"+teacher_index+" 'name='status["+teacher_index+"]' "+disabled+"><option value='attended'>Attended</option><option value='absent'>Absent</option></select></div>";
 	}
 
 	html += "<div data-role='fieldcontain'><label for='student_attendance'>Student Attendance</label>";
-	html += "<input type='button' class='btn student_attendance' data-index='"+index+"' name='student_attendance' id='student_attendance_status' value='Student Attendance: "+level_data.student_attendance+"' /></div>";
+	html += "<input "+disabled+" type='button' class='btn student_attendance' data-index='"+index+"' name='student_attendance' id='student_attendance_status' value='Student Attendance: "+level_data.student_attendance+"' /></div>";
 
-	html += "<input type='submit' name='action' value='Save' />";
-	html += "<input type='button' name='cancel' data-class-id='"+level_data.id+"' class='cancel-class' value='Cancel Class'  />";
+	html += "<input type='hidden' name='class_id' value='"+level_data.id+"' />";
+	html += "<input type='submit' name='action' value='Save' "+disabled+" />";
+	if(level_data.class_status == '1') {
+		html += "<input type='button' name='cancel' id='cancel_class' data-class-id='"+level_data.id+"' data-index='"+index+"' class='cancel-class' value='Cancel Class'  />";
+	} else {
+		html += "<input type='button' name='uncancel' id='un_cancel_class' data-class-id='"+level_data.id+"' data-index='"+index+"' class='uncancel-class' value='UnCancel Class'  />";
+	}
 
 	html += "</form>";
 
-	$("#level_info").html(html).trigger( "create" );
+	$("#level_info").html(html).trigger( "create" ).show();
+	$("#level_form").on("submit", saveClassData);
 	$("#student_attendance_status").on("click", getStudentAttendance);
+	$("#cancel_class").on("click", doCancelClass);
+	$("#un_cancel_class").on("click", doUnCancelClass);
 }
 
+function saveClassData(e) {
+	e.preventDefault();
+
+	var data = $("#level_form").serialize();
+	console.log(data);
+}
+
+function doCancelClass(e) {
+	e.preventDefault();
+
+	var class_id = $(this).attr("data-class-id");
+	var index = $(this).attr("data-index");
+
+	getData(base_url + "class_cancel", {"class_id": class_id}, function(data) {
+		class_data.classes[index].class_status = "0";
+		$("#level_info").hide();
+		alert("Class Cancelled");
+	});
+}
+
+function doUnCancelClass(e) {
+	e.preventDefault();
+
+	var class_id = $(this).attr("data-class-id");
+	var index = $(this).attr("data-index");
+	getData(base_url + "class_uncancel", {"class_id": class_id}, function(data) {
+		class_data.classes[index].class_status = "1";
+		$("#level_info").hide();
+		alert("Class Un-Cancelled");
+	});
+}
 function showAttendance(data, context) {
 	var index = $(context.this).attr("data-index");
 
