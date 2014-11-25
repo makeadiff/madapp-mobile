@@ -15,9 +15,9 @@ var config = {};
 		key = localStorage.getItem("key");
 	}
 
-    $( document ).on( "ready", function(){
-        if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load 
-    });
+    // $( document ).on( "ready", function(){
+    if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load 
+    // });
 
     $( document ).on( "deviceready", function(){
     	cordova.exec(null, null, "SplashScreen", "hide", []);
