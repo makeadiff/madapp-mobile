@@ -1,17 +1,17 @@
 var class_data;
 var all_teachers;
 function init () {
-	getData(base_url + "class_get_last_batch/", {"user_id":1}, updatePage, "levels");
-	setTeachers();
+	getData(base_url + "class_get_last_batch/", {"user_id": user_id}, updatePage, "levels");
+	getData(base_url + "user_get_teachers/", {"city_id": city_id}, setTeachers);
 }
 
-function setTeachers() {
-	all_teachers = [{"id":1,"name":"Xyz"}, {"id":2,"name":"Abc"}]
+function setTeachers(data) {
+	all_teachers = data.teachers;
 }
 
 function getData(url, args, func, context) {
 	loading();
-	args.key = "am3omo32hom4lnv32vO";
+	args.key = key;
 
 	$.ajax({
 		"url": url,
@@ -33,7 +33,7 @@ function updatePage(data, id) {
 	html += "<ul data-role='listview'>";
 	for(var index in data.classes) {
 		var level_data = data.classes[index];
-		html += "<li><a href='#level_info' class='level btn' data-level-id='"+level_data.level_id+"' data-index='"+index+"'>" +level_data.level_name+ "</a></li>";
+		html += "<li><a href='#level_info' disabled='disabled' class='level btn' data-level-id='"+level_data.level_id+"' data-index='"+index+"'>" +level_data.level_name+ "</a></li>";
 	}
 	html += "</ul>";
 
@@ -56,20 +56,27 @@ function showLevel(e) {
 	html += "<div data-role='fieldcontain'><label for='lesson_id'>Unit Taught</label><select id='lesson_id' name='lesson_id' "+disabled+">";
 	for(var i in level_data['all_lessons']) {
 		var lesson = level_data['all_lessons'][i];
-		html += "<option value='"+lesson.lesson_id+"'>"+lesson.lesson_name+"</option>";
+		html += "<option value='"+lesson.lesson_id+"'";
+		if(lesson.lesson_id == level_data.lesson_id) html += " selected";
+		html += ">"+lesson.lesson_name+"</option>";
 	}
 	html += "</select></div>";
 
 	for(var teacher_index in level_data['teachers']) {
 		var teacher = level_data['teachers'][teacher_index];
+		console.log(teacher);
 		html += "<h4>Teacher: " + teacher.name + "</h4>";
 
-		html += "<input type='hidden' name='user_id["+teacher_index+"]' value='"+teacher.id+"' />";
+		html += "<input type='hidden' name='teacher_id["+teacher_index+"]' value='"+teacher.id+"' />";
+		html += "<input type='hidden' name='zero_hour_attendance["+teacher_index+"]' value='1' />";
 
 		html += "<div data-role='fieldcontain'><label for='substitued_user_id_"+teacher_index+"'>Substitute</label><select id='substitued_user_id_"+teacher_index+"' name='substitute_id["+teacher_index+"]' "+disabled+">";
+		html += "<option value='0'>None</option>";
 		for(var i in all_teachers) {
-			var teacher = all_teachers[i];
-			html += "<option value='"+teacher.id+"'>"+teacher.name+"</option>";
+			var teacher_user = all_teachers[i];
+			html += "<option value='"+teacher_user.id+"'";
+			if(teacher_user.id == teacher.substitute_id) html += " selected";
+			html += ">"+teacher_user.name+"</option>";
 		}
 		html += "</select></div>";
 
@@ -100,8 +107,15 @@ function showLevel(e) {
 function saveClassData(e) {
 	e.preventDefault();
 
-	var data = $("#level_form").serialize();
-	console.log(data);
+	var serazilized = $("#level_form").serialize();
+	var data = decodeURIComponent(serazilized);
+	
+	//console.log(data, serazilized);
+	getData(base_url + "class_save_level/?"+data, {}, classSaved);
+}
+
+function classSaved(data) {
+	alert("Data Saved");
 }
 
 function doCancelClass(e) {

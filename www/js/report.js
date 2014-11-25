@@ -1,8 +1,8 @@
 function updateWithData(url, data, id) {
 	if(!id) id = "content";
 	loading();
-	data.key = "am3omo32hom4lnv32vO";
-	data.user_id = 1;
+	data.key = key;
+	data.user_id = user_id;
 
 	$.ajax({
 		"url": url,

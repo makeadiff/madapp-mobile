@@ -23,16 +23,15 @@ function login(e) {
 
 function loginSuccess(data) {
     if(data.success) {
-        console.log(data);
         data.success = data.name;
         showMessage(data); // Done
 
-        db.executeSql("DELETE FROM Setting WHERE name='email'");
-        db.executeSql("DELETE FROM Setting WHERE name='user_id'");
-        db.executeSql("DELETE FROM Setting WHERE name='key'");
-
-        db.executeSql("INSERT INTO Setting (name,vaule) VALUES('email', '"+data.email+"), ('user_id', '"+data.user_id+"), ('key', '"+data.key+")");
-        
+        user_id = data.user_id;
+        city_id = data.city_id;
+        key = data.key;
+        localStorage.setItem("user_id", user_id);
+        localStorage.setItem("city_id", city_id);
+        localStorage.setItem("key", key);
 
     } else {
         showMessage(data);
