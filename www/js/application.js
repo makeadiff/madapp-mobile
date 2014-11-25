@@ -15,18 +15,20 @@ var config = {};
 		key = localStorage.getItem("key");
 	}
 
+	console.log("Load");
+
     // $( document ).on( "ready", function(){
     if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load 
     // });
-
-    $( document ).on( "deviceready", function(){
-    	cordova.exec(null, null, "SplashScreen", "hide", []);
-        StatusBar.overlaysWebView( false );
-        StatusBar.backgroundColorByName("gray");
-    });
-
 }
 )(jQuery);
+
+$( document ).on( "deviceready", function(){
+	console.log("Device Ready");
+	cordova.exec(null, null, "SplashScreen", "hide", []);
+    StatusBar.overlaysWebView( false );
+    StatusBar.backgroundColorByName("gray");
+});
 
 function showMessage(data) {
 	var type = 'error';
@@ -51,3 +53,5 @@ function loading() {
 function loaded() {
 	$("#loading").hide();
 }
+
+console.log("application.js");
