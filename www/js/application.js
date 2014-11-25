@@ -20,6 +20,7 @@ var config = {};
     });
 
     $( document ).on( "deviceready", function(){
+    	cordova.exec(null, null, "SplashScreen", "hide", []);
         StatusBar.overlaysWebView( false );
         StatusBar.backgroundColorByName("gray");
     });

@@ -24,7 +24,6 @@ function login(e) {
 function loginSuccess(data) {
     if(data.success) {
         data.success = data.name;
-        showMessage(data); // Done
 
         user_id = data.user_id;
         city_id = data.city_id;
@@ -32,6 +31,8 @@ function loginSuccess(data) {
         localStorage.setItem("user_id", user_id);
         localStorage.setItem("city_id", city_id);
         localStorage.setItem("key", key);
+
+        location.href="index.html";
 
     } else {
         showMessage(data);
