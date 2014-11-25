@@ -1,7 +1,7 @@
 function init () {
-	console.log("Init");
+	alert("Init");
 
 	updateWithData(base_url + "user_class_history/", {});
 }
 
-console.log("class_history.js");
+alert("class_history.js");
