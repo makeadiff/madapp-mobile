@@ -211,3 +211,4 @@ function saveAttendanceData(e) {
 	return false;
 }
 
+console.log("application.js");

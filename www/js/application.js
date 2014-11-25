@@ -15,8 +15,6 @@ var config = {};
 		key = localStorage.getItem("key");
 	}
 
-	alert("Load");
-
     // $( document ).on( "ready", function(){
     if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load 
     // });
@@ -24,8 +22,7 @@ var config = {};
 )(jQuery);
 
 $( document ).on( "deviceready", function(){
-	alert("Device Ready");
-	cordova.exec(null, null, "SplashScreen", "hide", []);
+	//cordova.exec(null, null, "SplashScreen", "hide", []);
     StatusBar.overlaysWebView( false );
     StatusBar.backgroundColorByName("gray");
 });
@@ -54,4 +51,4 @@ function loaded() {
 	$("#loading").hide();
 }
 
-alert("application.js");
+console.log("application.js");
