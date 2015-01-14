@@ -1,4 +1,9 @@
 function init() {
+    // Clear the existing things...
+    localStorage.setItem("user_id", "");
+    localStorage.setItem("city_id", "");
+    localStorage.setItem("key", "");
+
     $("#login-form").submit(login);
 }
 

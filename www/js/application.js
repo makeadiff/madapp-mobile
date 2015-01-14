@@ -1,5 +1,5 @@
-//var base_url = "http://localhost/Projects/Madapp/index.php/api/";
-var base_url = "http://makeadiff.in/madapp/index.php/api/";
+var base_url = "http://localhost/Projects/Madapp/index.php/api/";
+//var base_url = "http://makeadiff.in/madapp/index.php/api/";
 var user_id = 0;
 var city_id = 0;
 var key = "am3omo32hom4lnv32vO";
@@ -50,5 +50,3 @@ function loading() {
 function loaded() {
 	$("#loading").hide();
 }
-
-console.log("application.js");
